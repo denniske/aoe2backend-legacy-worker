@@ -1,13 +1,17 @@
-name = "aoe2backend-worker"
+name = "aoe2backend-legacy-worker"
 main = "src/index.ts"
 compatibility_date = "2022-10-20"
 
-[vars]
+kv_namespaces = [
+    { binding = "AOE2COMPANION", id = "7ad8c79795bb47d7aec40ddcda89259d" }
+]
+
+#[vars]
 #DATABASE_URL = "prisma://aws-us-east-1.prisma-data.com/?api_key=•••••••••••••••••"
 
 # The necessary secrets are:
 # - DATABASE_URL
+# - REDIS_URL
 
 # Run `echo <VALUE> | wrangler secret put DATABASE_URL` for it
-
 

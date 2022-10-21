@@ -18,7 +18,6 @@ import {fromUnixTime, getUnixTime} from "date-fns";
 import {getColor} from "../helper/colors";
 import {getFlag} from "../helper/flags";
 
-
 const PER_PAGE = 20;
 
 // export async function apiProfiles(req: Request, env: Env) {
@@ -253,6 +252,8 @@ Example Request
 
 export async function apiLeaderboard(req: Request, env: Env) {
     const prisma = getPrisma();
+    // setRedis(env);
+    // const redis = getRedis();
     const { searchParams } = new URL(req.url);
 
     const start = parseInt(searchParams.get('start') ?? '1');
@@ -323,9 +324,10 @@ export async function apiLeaderboard(req: Request, env: Env) {
         leaderboardRows.forEach((row: any) => row.rank = row.rank_country);
     }
 
-    // const cacheKey = CACHE_LEADERBOARD_COUNT.replace('${leaderboardId}', leaderboardId.toString());
-    // const cache = JSON.parse(await redis.get(cacheKey) || '{}');
-    const total = 0;//cache[country || 'world'] || 0;
+    const cacheKey = CACHE_LEADERBOARD_COUNT.replace('${leaderboardId}', leaderboardId.toString());
+    console.log(cacheKey);
+    const cache = JSON.parse(await env.AOE2COMPANION.get(cacheKey) || '{}');
+    const total = cache[country || 'world'] || 0;
 
     return sendResponse({
         leaderboard_id: leaderboardId,

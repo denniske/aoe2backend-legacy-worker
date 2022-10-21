@@ -17,10 +17,11 @@ import {
     apiNightbotRank,
     apiNightbotMatch
 } from "./api/legacy";
+import {apiKvSet} from "./api/kv";
 
 export interface Env {
     // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-    // MY_KV_NAMESPACE: KVNamespace;
+    AOE2COMPANION: KVNamespace;
     //
     // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
     // MY_DURABLE_OBJECT: DurableObjectNamespace;
@@ -29,6 +30,7 @@ export interface Env {
     // MY_BUCKET: R2Bucket;
 
     DATABASE_URL: string;
+    KV_API_KEY: string;
 }
 
 export default {
@@ -43,6 +45,15 @@ export default {
 
         const { searchParams, pathname } = new URL(url);
 
+        // const keys = Object.keys(env);
+        // for (let i = 0; i < Object.values(env).length; i++) {
+        //     console.log(keys[i], Object.values(env)[i]);
+        // }
+
+        // console.log('ctx', ctx);
+        // console.log('ENV', env);
+        // console.log('ENV.AOE2COMPANION', env.AOE2COMPANION);
+        // console.log('ENV', env.kv_namespaces[0]);
 
         setPrisma(env);
 
@@ -51,6 +62,7 @@ export default {
 
         // if (url.includes('/api/matches?')) return await apiMatches(request, env);
 
+        if (pathname.startsWith('/kv/set')) return await apiKvSet(request, env);
 
 
 
