@@ -2,6 +2,7 @@ import {parseISO} from "date-fns";
 import {decamelizeKeys} from "humps";
 
 export function parseISONullable(value: string) {
+    console.log('parseISONullable', value);
     return value ? parseISO(value) : null;
 }
 
@@ -13,12 +14,17 @@ export function bigIntStringifer(key: string, value: any) {
 }
 
 export function sendResponse(data: any) {
-    // res.set('content-type', 'application/json');
-    // res.send(JSON.stringify(decamelizeKeys(data), bigIntStringifer));
-
     return new Response(JSON.stringify(decamelizeKeys(data), bigIntStringifer), {
         headers: {
             'content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+}
+
+export function sendResponseText(data: any) {
+    return new Response(data, {
+        headers: {
             'Access-Control-Allow-Origin': '*',
         },
     });
