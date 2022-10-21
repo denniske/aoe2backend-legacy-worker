@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2022-10-20"
 
 kv_namespaces = [
-    { binding = "AOE2COMPANION", id = "7ad8c79795bb47d7aec40ddcda89259d" }
+    { binding = "AOE2COMPANION", id = "5328970bb8eb4207ae4770f5f9ad31a9" }
 ]
 
 #[vars]
